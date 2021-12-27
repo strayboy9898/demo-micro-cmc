@@ -4,11 +4,11 @@ import { JwtService } from '@nestjs/jwt';
 import {InjectRepository} from "@nestjs/typeorm";
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { sign } from 'jsonwebtoken';
 
 @Injectable()
 export class AuthService {
   constructor(
-      // private usersService: UsersService,
       @InjectRepository(User)
       private usersRepository: Repository<User>,
       private jwtService: JwtService
@@ -30,7 +30,8 @@ export class AuthService {
     const data = await this.validateUser(user.username, user.password);
     if(data) {
       return {
-        access_token: this.jwtService.sign(payload),
+        //access_token: this.jwtService.sign(payload),
+        access_token: sign(payload, 'micro_cmc'),
       };
     }
     return null;

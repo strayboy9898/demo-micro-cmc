@@ -7,7 +7,7 @@ export class StorageController {
   constructor(private readonly storageService: StorageService) {}
 
   @MessagePattern({ cmd: "getAllItem" })
-  signUp(): any {
+  getAllItem(): any {
     return this.storageService.getAllItem();
   }
 }

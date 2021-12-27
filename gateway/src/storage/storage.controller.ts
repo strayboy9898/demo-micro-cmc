@@ -1,8 +1,9 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, Inject} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, Inject, UseGuards} from '@nestjs/common';
 //import { StorageService } from './storage.service';
 import { CreateStorageDto } from './dto/create-storage.dto';
 import { UpdateStorageDto } from './dto/update-storage.dto';
 import {ClientProxy} from "@nestjs/microservices";
+import {JwtAuthGuard} from "../jwt-auth.guard";
 
 @Controller('/gateway/storage')
 export class GatewayStorageController {
@@ -11,6 +12,7 @@ export class GatewayStorageController {
       //private readonly storageService: StorageService
   ) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get('/')
   getAllItems() {
     const pattern = { cmd: "getAllItem" };

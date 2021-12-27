@@ -24,7 +24,7 @@ import {jwtConstants} from "./auth.constant";
     }),
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
-      secret: jwtConstants.secret || 'demo',
+      secret: process.env.secretKeyJWT || 'micro_cmc',
       signOptions: { expiresIn: '60s' },
     })
   ],

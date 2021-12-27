@@ -2,9 +2,14 @@ import { Module } from '@nestjs/common';
 import {ClientsModule, Transport} from "@nestjs/microservices";
 import {GatewayStorageService} from "./storage.service";
 import {GatewayStorageController} from "./storage.controller";
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    JwtModule.register({
+      secret: process.env.secretKeyJWT || 'micro_cmc',
+      signOptions: { expiresIn: '60s' },
+    }),
     ClientsModule.register([
       {
         name: "STORAGE_SERVICE",
@@ -18,6 +23,7 @@ import {GatewayStorageController} from "./storage.controller";
         },
       }
     ]),
+
   ],
   controllers: [GatewayStorageController],
   providers: [GatewayStorageService]
